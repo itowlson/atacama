@@ -1,0 +1,12 @@
+bindle = "itowlson/belch/0.1.0"
+
+[[handler]]
+moduleId = "emit"
+trigger.type = "timer"
+trigger.interval = "00:00:10"
+
+[[handler.binding]]
+direction = "output"
+type = "http"
+method = "POST"
+url = "http://localhost:5651"
