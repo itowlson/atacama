@@ -8,7 +8,7 @@ const ABOUT: &str = r#"
 Run an event handling provcess
 "#;
 
-// const BINDLE_URL: &str = "BINDLE_URL";
+const ARG_BINDLE_URL: &str = "BINDLE_URL";
 const ARG_CONFIG_FILE: &str = "CONFIG_FILE";
 
 #[tokio::main]
@@ -30,12 +30,24 @@ pub async fn main() -> Result<(), anyhow::Error> {
                 .takes_value(true)
                 .default_value("./atacama.toml"),
         )
+        .arg(
+            Arg::with_name(ARG_BINDLE_URL)
+                .long("bindle-url")
+                .value_name("BINDLE_URL")
+                .env("BINDLE_URL")
+                .help("The Bindle server URL, e.g. https://example.com:8080/v1. Note that the version path (v1) is required.")
+                .takes_value(true)
+                .default_value("http://localhost:8080/v1"),
+        )
         .get_matches();
 
     let config_path = matches.value_of(ARG_CONFIG_FILE).unwrap();
+    let bindle_url = matches.value_of(ARG_CONFIG_FILE).unwrap();
+
     let data = std::fs::read(config_path).map_err(|e| anyhow::anyhow!("Can't read config file {}: {}", config_path, e))?;
     let app: AppDefinition = toml::from_slice(&data)?;
 
+    println!("{:?}", bindle_url);
     println!("{:?}", &app);
 
     Ok(())
