@@ -4,6 +4,7 @@ use calloop::{EventLoop, LoopSignal};
 use crate::config::AppDefinition;
 
 mod config;
+mod runtime;
 mod trigger;
 
 const ABOUT: &str = r#"
