@@ -110,6 +110,7 @@ dependencies = [
  "async-stream",
  "async-trait",
  "bindle",
+ "calloop",
  "cap-std",
  "clap",
  "env-file-reader",
@@ -278,6 +279,16 @@ name = "bytes"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b700ce4376041dcd0a327fd0097c41095743c4c8af8887265942faf1100bd040"
+
+[[package]]
+name = "calloop"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fefa239d8d0409cea89223052ad948e09118816a2ac70b4cf334a68119674ae7"
+dependencies = [
+ "log",
+ "nix",
+]
 
 [[package]]
 name = "cap-fs-ext"
@@ -1422,6 +1433,19 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "tempfile",
+]
+
+[[package]]
+name = "nix"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c3728fec49d363a50a8828a190b379a446cc5cf085c06259bbbeb34447e4ec7"
+dependencies = [
+ "bitflags",
+ "cc",
+ "cfg-if",
+ "libc",
+ "memoffset",
 ]
 
 [[package]]

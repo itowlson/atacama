@@ -3,7 +3,7 @@ bindle = "itowlson/belch/0.1.0"
 [[handler]]
 moduleId = "emit"
 trigger.type = "timer"
-trigger.interval = "00:00:10"
+trigger.intervalInSeconds = 2
 
 [[handler.binding]]
 direction = "output"

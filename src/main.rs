@@ -1,8 +1,10 @@
 use clap::{App, Arg};
+use calloop::{EventLoop, LoopSignal};
 
 use crate::config::AppDefinition;
 
 mod config;
+mod trigger;
 
 const ABOUT: &str = r#"
 Run an event handling provcess
@@ -49,6 +51,22 @@ pub async fn main() -> Result<(), anyhow::Error> {
 
     println!("{:?}", bindle_url);
     println!("{:?}", &app);
+
+    let mut event_loop: EventLoop<LoopSignal> = EventLoop::try_new()?;
+    let loop_handle = event_loop.handle();
+    let mut loop_signal = event_loop.get_signal();
+
+    for handler in &app.handler() {
+        // TODO: this does not hook up any kind of callback
+        handler.trigger()?.provide_events(&loop_handle)?;
+    }
+
+    event_loop
+        .run(
+            std::time::Duration::from_millis(20),
+            &mut loop_signal,
+            |_loop_signal| {},
+        )?;
 
     Ok(())
 }
